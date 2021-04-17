@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Repository.Contexts;
@@ -9,6 +10,7 @@ using SharedKernel.ViewModels;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SharedKernel.Extensions;
 
 namespace Repository.Repositories.DefaultRepositories
 {
@@ -23,7 +25,7 @@ namespace Repository.Repositories.DefaultRepositories
             _coreDbContext = coreDbContext;
         }
 
-        public async Task<MovieSummaryViewModel> GetMovies(string keyword,PagingInfo pagingInfo, CancellationToken cancellationToken = default)
+        public async Task<MovieSummaryViewModel> GetMovies(string keyword, PagingInfo pagingInfo, CancellationToken cancellationToken = default)
         {
             var movieQuery = _coreDbContext.Movies.AsQueryable();
 
@@ -43,64 +45,25 @@ namespace Repository.Repositories.DefaultRepositories
                 PaginationInfo = new PaginationInfo { Page = pagingInfo.PageNumber, PageSize = pagingInfo.PageSize, Total = movieQuery.Count() }
             };
         }
-    }
 
-    public class PagingInfo
-    {
-        private const int DefaultPageSize = 50;
-        private const int DefaultPageNumber = 1;
-
-        public PagingInfo(PaginationInfo model)
+        public async Task AddStartForMovie(int stars, Movie movie, CancellationToken cancellationToken = default)
         {
-            PageNumber = model.Page;
-            PageSize = model.PageSize;
-            SetSkipSize();
+            var rating = new Rating();
+
+            await _coreDbContext.Ratings.AddAsync(rating, cancellationToken);
+
+            var ratingMovie = new RatingMovie(movie.Id, rating.Id);
+
+            await _coreDbContext.AddAsync(ratingMovie, cancellationToken);
+
+            await _coreDbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public PagingInfo(int pageNumber = DefaultPageNumber, int pageSize = DefaultPageSize)
+        public async Task<Movie> GetMovieById(Guid movieId, CancellationToken cancellationToken)
         {
-            PageNumber = pageNumber;
-            PageSize = pageSize;
-            SetSkipSize();
-        }
+            var movie = await _coreDbContext.Movies.FirstOrDefaultAsync(x => x.Id == movieId, cancellationToken);
 
-        private int _pageNumber;
-        public int PageNumber
-        {
-            get => _pageNumber;
-            private init
-            {
-                if (value <= 0)
-                    value = DefaultPageNumber;
-                _pageNumber = value;
-            }
-        }
-
-        private int _pageSize;
-        public int PageSize
-        {
-            get => _pageSize;
-            private init
-            {
-                if (value <= 0)
-                    value = DefaultPageSize;
-                _pageSize = value;
-            }
-        }
-
-        public int SkipSize { get; private set; }
-
-        public int GetDefaultPageSize() => DefaultPageSize;
-        public int GetDefaultPageNumber() => DefaultPageNumber;
-        private int SetSkipSize() => SkipSize = _pageSize * (_pageNumber - 1);
-    }
-
-    public static class CommonQueryableExtensions
-    {
-        public static IQueryable<T> SkipAndTake<T>(this IQueryable<T> queryable, PagingInfo pagingInfo = null)
-        {
-            pagingInfo ??= new PagingInfo();
-            return queryable.Skip(pagingInfo.SkipSize).Take(pagingInfo.PageSize);
+            return movie;
         }
     }
 }

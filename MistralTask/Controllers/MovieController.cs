@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MistralTask.Business.Commands;
 using MistralTask.Business.Queries;
 using SharedKernel.Extensions;
 
@@ -23,6 +25,17 @@ namespace MistralTask.Controllers
         {
             var response =
                 await _dispatcher.Send(new GetMovies.Query(page, pageSize, keyword));
+
+            return response.ToActionResult();
+        }
+
+        [HttpPost("{movieId}")]
+        public async Task<IActionResult> AddStars(Guid movieId, AddStarsForMovie.Command command)
+        {
+            command.MovieId = movieId; 
+
+            var response =
+                await _dispatcher.Send(command);
 
             return response.ToActionResult();
         }

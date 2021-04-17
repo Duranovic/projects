@@ -16,6 +16,14 @@ namespace SharedKernel.ApiModels
 
         [JsonIgnore]
         public bool IsSuccess => HttpStatusCode >= (HttpStatusCode) 200 && HttpStatusCode <= (HttpStatusCode) 299;
+
+        public new static ApiModel Success()
+        {
+            return new ApiModel
+            {
+                HttpStatusCode = HttpStatusCode.OK
+            };
+        }
     }
 
     public class ApiModel<TResult> : ApiModel

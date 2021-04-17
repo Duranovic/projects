@@ -10,11 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Contexts;
 using SharedKernel.ApiModels;
 using SharedKernel.Exceptions;
+using SharedKernel.Models;
+using SharedKernel.QueryableExtensions;
 using SharedKernel.ViewModels;
 
 namespace Repository.Repositories.DefaultRepositories
 {
-    public class TvShowRepository
+    public class TvShowRepository : ITvShowRepository
     {
         private readonly CoreDbContext _coreDbContext;
         private readonly IMapper _mapper;
@@ -25,29 +27,29 @@ namespace Repository.Repositories.DefaultRepositories
             _coreDbContext = coreDbContext;
         }
 
-        public async Task<MovieSummaryViewModel> GetTvShows(string keyword, int page, int pageSize,
+        public async Task<TvShowSummaryViewModel> GetTvShows(string keyword, int page, int pageSize,
             CancellationToken cancellationToken = default)
         {
             var tvShowsQuery = _coreDbContext.TvShows.AsQueryable();
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                tvShowsQuery = tvShowsQuery.SearchByPhrase(keyword);
+                tvShowsQuery = tvShowsQuery.SearchByPhrase<TvShow, RatingTvShow>(keyword);
             }
 
             tvShowsQuery = tvShowsQuery.OrderBy(x => x.Ratings.Sum(q => q.Rating.Star.Count) / x.Ratings.Count);
 
             var total = tvShowsQuery.Count();
 
-            var movies = await tvShowsQuery
+            var tvShows = await tvShowsQuery
                 .Take(pageSize)
-                .ProjectTo<MovieViewModel>(_mapper.ConfigurationProvider)
+                .ProjectTo<TvShowViewModel>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new MovieSummaryViewModel
+            return new TvShowSummaryViewModel
             {
-                MovieViewModels = movies,
-                PaginationInfo = new PaginationInfo {Page = page, PageSize = pageSize, Total = total}
+                TvShowViewModels = tvShows,
+                PaginationInfo = new PaginationInfo { Page = page, PageSize = pageSize, Total = total }
             };
         }
     }

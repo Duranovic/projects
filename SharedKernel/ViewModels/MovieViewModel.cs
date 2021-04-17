@@ -24,7 +24,7 @@ namespace SharedKernel.ViewModels
                 CreateMap<Movie, MovieViewModel>()
                     .IncludeBase<BaseEntity<Guid>, BaseViewModel<Guid>>()
                     .ForMember(dest => dest.Rating,
-                        opt => opt.MapFrom(src => src.Ratings.Sum(x => x.Rating.Star.Count) / src.Ratings.Count))
+                        opt => opt.MapFrom(src => src.Ratings.Average(r => r.Rating.Star.Count)))
                     .ForMember(dest => dest.Actors,
                         opt => opt.MapFrom(src => src.CastMovie.Cast.CastActors));
             }

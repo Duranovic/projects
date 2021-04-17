@@ -22,7 +22,7 @@ namespace MistralTask.Business.Handlers
             CancellationToken cancellationToken)
         {
             var moviesSummary = await
-                _movieRepository.GetMovies(query.Keyword, query.Page, query.PageSize, cancellationToken);
+                _movieRepository.GetMovies(query.Keyword, new PagingInfo(query.Page, query.PageSize), cancellationToken);
 
             return ApiModel<IReadOnlyList<MovieViewModel>>.Success().WithData(moviesSummary.MovieViewModels)
                 .WithMeta(moviesSummary.PaginationInfo);

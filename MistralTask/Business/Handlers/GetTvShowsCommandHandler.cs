@@ -13,7 +13,7 @@ namespace MistralTask.Business.Handlers
 {
     public class GetTvShowsCommandHandler : IRequestHandler<GetMovies.Query, ApiModel<IReadOnlyList<MovieViewModel>>>
     {
-        private readonly IMovieRepository _movieRepository;
+        private readonly ITvShowRepository _movieRepository;
 
         public GetTvShowsCommandHandler(IMovieRepository movieRepository)
         {
@@ -24,7 +24,7 @@ namespace MistralTask.Business.Handlers
             CancellationToken cancellationToken)
         {
             var moviesSummary = await
-                _movieRepository.GetMovies(query.Keyword, query.Page, query.PageSize, cancellationToken);
+                _movieRepository.GetMovies(query.Keyword, new PagingInfo(query.Page, query.PageSize), cancellationToken);
 
             return ApiModel<IReadOnlyList<MovieViewModel>>.Success().WithData(moviesSummary.MovieViewModels)
                 .WithMeta(moviesSummary.PaginationInfo);

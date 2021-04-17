@@ -7,16 +7,6 @@ namespace SharedKernel.ApiModels
         private int _page;
         private int _pageSize;
 
-        protected PaginationQuery()
-        {
-        }
-
-        protected PaginationQuery(int page, int pageSize)
-        {
-            _page = page;
-            _pageSize = pageSize;
-        }
-
         public int PageSize
         {
             get => _pageSize == default ? 25 : _pageSize;
@@ -27,6 +17,16 @@ namespace SharedKernel.ApiModels
         {
             get => _page == default ? 1 : _page;
             set => _page = value;
+        }
+
+        protected PaginationQuery()
+        {
+        }
+
+        protected PaginationQuery(int page, int pageSize)
+        {
+            _page = page;
+            _pageSize = pageSize;
         }
     }
 }

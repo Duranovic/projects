@@ -1,12 +1,20 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Repository.Repositories.DefaultRepositories;
+using SharedKernel.ApiModels;
+using SharedKernel.Models;
 using SharedKernel.ViewModels;
 
 namespace Repository.Repositories
 {
     public interface IMovieRepository
     {
-        Task<MovieSummaryViewModel> GetMovies(string keyword, PagingInfo pagingInfo, CancellationToken cancellationToken = default);
+        Task<MovieSummaryViewModel> GetMovies(string keyword, PagingInfo pagingInfo,
+            CancellationToken cancellationToken = default);
+
+        Task AddStartForMovie(int stars, Movie movie,
+            CancellationToken cancellationToken = default);
+
+        Task<Movie> GetMovieById(Guid movieId, CancellationToken cancellationToken);
     }
 }

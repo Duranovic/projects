@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using SharedKernel.ViewModels;
 
 namespace Repository.Repositories
 {
-    class ITvShowRepository
+    public interface ITvShowRepository
     {
+        Task<TvShowSummaryViewModel> GetTvShows(string keyword, int page, int pageSize,
+            CancellationToken cancellationToken = default);
+
+        //Task GetTvShowById(Guid commandTvShowId, CancellationToken cancellationToken = default);
     }
 }
