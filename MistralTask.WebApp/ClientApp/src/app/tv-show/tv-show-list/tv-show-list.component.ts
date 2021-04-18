@@ -4,25 +4,24 @@ import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/shared/models/shared.models';
 
-import { Movie } from '../movie';
-import { MoviesApiService } from '../services/movies-api.service';
+import { TwShowApiService } from '../services/tw-show-api.service';
+import { TvShow } from '../tv-show';
 
 @Component({
-    selector: "movie-list",
-    templateUrl: "movie-list.component.html",
+    selector: "tv-show-list",
+    templateUrl: "tw-show-list.component.html",
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListComponent implements OnInit {
+export class TwShowListComponent implements OnInit {
     pageSize = 10;
     debounceTime: number = 400;
     currentPage: number = 1;
     searchControl: FormControl = new FormControl();
     errors: string[] = [];
-    movies: ApiResponse<Movie[]> = {} as ApiResponse<Movie[]>;
-    isList: boolean = false;
+    tvShows: ApiResponse<TvShow[]> = {} as ApiResponse<TvShow[]>;
 
     constructor(
-        private readonly movieApiService: MoviesApiService,
+        private readonly twShowApiService: TwShowApiService,
         private readonly cd: ChangeDetectorRef,
         private readonly router: Router) { }
 
@@ -30,48 +29,40 @@ export class MovieListComponent implements OnInit {
         this.searchControl = new FormControl();
         this.searchControl.valueChanges
             .pipe(debounceTime(this.debounceTime))
-            .subscribe(() => this.searchMovies());
-        this.getMovies("", false);
+            .subscribe(() => this.searchTvShows());
+        this.getTvShows("", false);
     }
 
-    searchMovies(): void {
+    searchTvShows(): void {
         const keyword = this.searchControl.value as string
             ? this.searchControl.value
             : "";
 
         if (keyword.length > 2) {
-            this.getMovies(keyword, false);
+            this.getTvShows(keyword, false);
         }
     }
 
     pageChange(page: number): void {
         this.currentPage = page;
         this.cd.markForCheck();
-        this.searchMovies();
+        this.searchTvShows();
     }
 
-    onSuccess(data: ApiResponse<Movie[]>, loadMore: boolean): void {
-        this.movies.paginationInfo = data.paginationInfo;
-        if (this.movies.records || loadMore) {
-            this.movies.records.push(...data.records);
+    onSuccess(data: ApiResponse<TvShow[]>, loadMore: boolean): void {
+        this.tvShows.paginationInfo = data.paginationInfo;
+        if (this.tvShows.records || loadMore) {
+            this.tvShows.records.push(...data.records);
         } else {
-            this.movies.records = data.records;
+            this.tvShows.records = data.records;
         }
 
         this.currentPage = 1;
     }
 
-    getMovies(keyword: string = "", loadMore: boolean): void {
-        if (loadMore) {
-            this.currentPage++;
-        }
-
-        this.movieApiService
-            .searchMovies(keyword, this.currentPage, this.pageSize)
+    getTvShows(keyword: string = "", loadMore: boolean): void {
+        this.twShowApiService
+            .searchTvShow(keyword, this.currentPage, this.pageSize)
             .subscribe(data => this.onSuccess(data, loadMore));
-    }
-
-    changeViewMode(){
-        this.isList = !this.isList;
     }
 }

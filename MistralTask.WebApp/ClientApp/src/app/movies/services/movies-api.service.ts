@@ -16,8 +16,8 @@ export class MoviesApiService {
     }
 
     addStars(movieId: string, stars: number): Observable<ApiResponse<void> | ApiErrorResponse> {
-      return this.http.post<ApiResponse<void> | ApiErrorResponse>(`${this.baseUrl}/movie?tenantid=${movieId}`, {stars: stars});
-  }
+        return this.http.post<ApiResponse<void> | ApiErrorResponse>(`${this.baseUrl}/movie?tenantid=${movieId}`, { stars: stars });
+    }
 
     get baseUrl(): string {
         return `${this.appConfig.appSettings.apiEndpoints.endpoint}/movie`;

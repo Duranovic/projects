@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="d-flex">
-        <a [routerLink]="'/movie/rate'" class="btn btn-primary flex-fill"> Add start for movies</a>
+        <button [routerLink]="'/movie/rate'" class="btn btn-primary flex-fill"> Add start for movies</button>
     </div>
     </div>
     <hr>
@@ -53,8 +53,8 @@
   </div>
 
   <div class="d-flex justify-content-center">
-    <button *ngIf="movies.paginationInfo.total !== movies.records.length || searchControl.value !== ''" (click)="getMovies('', true)"
-      class="btn btn-secondary"><i class="fa fa-arrow-down"></i>
+    <button *ngIf="movies.paginationInfo.total !== movies.records.length || searchControl.value !== ''"
+      (click)="getMovies('', true)" class="btn btn-secondary"><i class="fa fa-arrow-down"></i>
       Load More</button>
   </div>
 </div>

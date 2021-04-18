@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MovieListComponent } from './tv-show-list/movie-list.component';
+import { TwShowListComponent } from './tv-show-list/tv-show-list.component';
 
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
             },
             {
                 path: "list",
-                component: MovieListComponent,
+                component: TwShowListComponent,
                 data: {
                     showTopTitleBar: true,
                 }
@@ -28,4 +28,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class UsersRoutingModule { }
+export class TvShowRoutingModule { }
