@@ -50,7 +50,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new Actor
                 {
-                    Id = new Guid("8303949e-d1cb-4c82-9300-c6925009ffb3"),
+                    Id = new Guid("d4e4ec8b-fea7-4892-a372-c31081c163b6"),
                     FirstName = "Sophie",
                     LastName = "Turner",
                 }

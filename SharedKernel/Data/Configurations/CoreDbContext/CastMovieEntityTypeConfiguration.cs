@@ -70,6 +70,42 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     Id = new Guid("870e522a-bef6-47fd-bf00-05ce6b7de7e4"),
                     CastId = new Guid("8f059533-25f4-4465-90b0-2ca13b6bb155"),
                     MovieId = new Guid("46b687b2-6143-4255-800d-a4a1a2939d25")
+                },
+                new CastMovie
+                {
+                    Id = new Guid("a654414c-61fa-4f78-aab0-fbec2bc09943"),
+                    CastId = new Guid("271c2f40-0b27-4526-b8a4-00d77508865e"),
+                    MovieId = new Guid("4d973b27-50a9-4262-8389-81a8d905d4e4")
+                },
+                new CastMovie
+                {
+                    Id = new Guid("0690e320-10dd-4588-9d09-d6f6445ad7c9"),
+                    CastId = new Guid("71033605-948c-4cdd-af69-9f026440105d"),
+                    MovieId = new Guid("6654e2e5-7446-48c0-8522-bd9d7284cb7a")
+                },
+                new CastMovie
+                {
+                    Id = new Guid("73060af6-648b-4e45-ab1f-c5532ddf4aab"),
+                    CastId = new Guid("570c996a-bf38-4bee-b6bb-38ecae712770"),
+                    MovieId = new Guid("b96c8fd6-bf44-4a57-b8fe-64a62a951655")
+                },
+                new CastMovie
+                {
+                    Id = new Guid("2f1696b7-2106-4ba3-aab9-dcb4104b3164"),
+                    CastId = new Guid("5ee2a634-9f8e-4f81-b7c3-a9107e865581"),
+                    MovieId = new Guid("d9096c09-9057-4fea-a059-9c3af0dd50765")
+                },
+                new CastMovie
+                {
+                    Id = new Guid("61286443-8e8f-47ff-9b78-08004ea81505"),
+                    CastId = new Guid("d5dd94bd-ede9-45bf-9110-62717e8741ad"),
+                    MovieId = new Guid("d47d40dd-fd8c-48df-a766-7c9c2309f682")
+                },
+                new CastMovie
+                {
+                    Id = new Guid("f39501fe-1b4c-48c4-ba8a-097be505ddbc"),
+                    CastId = new Guid("c19e03dd-3e0f-4ddd-98b7-803661dd7571"),
+                    MovieId = new Guid("8a30ed42-ee09-4103-8f05-9c607503c04e")
                 }
             );
         }
