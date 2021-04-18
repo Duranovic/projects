@@ -22,12 +22,12 @@ const routes: Routes = [
                 }
             },
             {
-              path: "rate",
-              component: RateMovieComponent,
-              data: {
-                  showTopTitleBar: true,
-              }
-          }
+                path: "rate",
+                component: RateMovieComponent,
+                data: {
+                    showTopTitleBar: true,
+                }
+            }
         ]
     }
 ];
@@ -36,4 +36,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class UsersRoutingModule { }
+export class MovieRoutingModule { }

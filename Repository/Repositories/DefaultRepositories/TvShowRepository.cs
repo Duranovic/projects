@@ -36,7 +36,7 @@ namespace Repository.Repositories.DefaultRepositories
                 tvShowsQuery = tvShowsQuery.SearchByPhrase<TvShow, RatingTvShow>(keyword);
             }
 
-            tvShowsQuery = tvShowsQuery.OrderBy(x => x.Ratings.Average(r => r.Rating.Star.Count));
+            tvShowsQuery = tvShowsQuery.OrderBy(x => x.AverageRating);
 
             var tvShows = await tvShowsQuery
                 .SkipAndTake(pagingInfo)

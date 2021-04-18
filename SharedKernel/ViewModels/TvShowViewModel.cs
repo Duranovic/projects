@@ -14,7 +14,7 @@ namespace SharedKernel.ViewModels
         public DateTime ReleaseDate { get; set; }
         public string Description { get; set; }
         public string CoverImage { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public List<ActorViewModel> Actors { get; set; }
 
         public class MovieViewModelProfile : Profile
@@ -24,9 +24,9 @@ namespace SharedKernel.ViewModels
                 CreateMap<TvShow, TvShowViewModel>()
                     .IncludeBase<BaseEntity<Guid>, BaseViewModel<Guid>>()
                     .ForMember(dest => dest.Rating,
-                        opt => opt.MapFrom(src => src.Ratings.Average(r => r.Rating.Star.Count)))
-                    .ForMember(dest => dest.Actors,
-                        opt => opt.MapFrom(src => src.CastTvShow.Cast.CastActors));
+                        opt => opt.MapFrom(src => src.AverageRating));
+                //.ForMember(dest => dest.Actors,
+                //    opt => opt.MapFrom(src => src.CastTvShow.Cast.CastActors));
             }
         }
     }

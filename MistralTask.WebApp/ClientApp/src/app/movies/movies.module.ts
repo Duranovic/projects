@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { MovieListComponent as MovieListComponent } from './movie-list/movie-list.component';
-import { UsersRoutingModule as MoviesRoutingModule } from './movies-routing.module';
+import { MovieRoutingModule as MoviesRoutingModule } from './movies-routing.module';
 import { RateMovieComponent } from './rate-movie/rate-movie.component';
 import { MoviesApiService } from './services/movies-api.service';
 

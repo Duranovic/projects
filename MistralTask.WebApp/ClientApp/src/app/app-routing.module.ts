@@ -7,6 +7,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./movies/movies.module").then(mod => mod.MoviesModule)
   },
+  {
+    path: "tv-show",
+    loadChildren: () =>
+      import("./tv-show/tv-show.module").then(mod => mod.TwShowModule)
+  },
 ]
 
 @NgModule({
