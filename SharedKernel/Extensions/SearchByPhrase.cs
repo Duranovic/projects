@@ -2,7 +2,7 @@
 using System.Linq;
 using SharedKernel.Models;
 
-namespace SharedKernel.QueryableExtensions
+namespace SharedKernel.Extensions
 {
     public static class SearchQueryableExtension
     {
@@ -38,18 +38,10 @@ namespace SharedKernel.QueryableExtensions
         private static IQueryable<T> FilterByTime<T, TReview>(this IQueryable<T> query, string phrase, int numberFromPhrase) where T : IMovieShow<TReview> where TReview : IRating
         {
             if (phrase.Contains("older than"))
-                return query.Where(x => GetYearsDifferenceInPast(x.ReleaseDate) > numberFromPhrase);
+                return query.Where(x => (DateTime.UtcNow.Year - x.ReleaseDate.Year) > numberFromPhrase);
 
             return phrase.Contains("after") ? query.Where(x => x.ReleaseDate.Year > numberFromPhrase) : query;
         }
-
-        private static int GetYearsDifferenceInPast(DateTime date)
-        {
-            TimeSpan timeDifference = DateTime.Now - date;
-            var start = new DateTime(1, 1, 1);
-            return (start + timeDifference).Year - 1;
-        }
-
         #endregion
 
         #region Filtering by stars
@@ -61,12 +53,12 @@ namespace SharedKernel.QueryableExtensions
 
         private static IQueryable<T> FilterAtLeastStars<T, TReview>(this IQueryable<T> query, int numberFromPhrase) where T : IMovieShow<TReview> where TReview : IRating
         {
-            return query.Where(x => x.Ratings.Average(r => r.Rating.Star.Count) >= numberFromPhrase);
+            return query.Where(x => x.AverageRating >= numberFromPhrase);
         }
 
         private static IQueryable<T> FilterEqualStars<T, TReview>(this IQueryable<T> query, int numberFromPhrase) where T : IMovieShow<TReview> where TReview : IRating
         {
-            return query.Where(x => x.Ratings.Average(r => r.Rating.Star.Count) == numberFromPhrase);
+            return query.Where(x => x.AverageRating == numberFromPhrase);
         }
 
         #endregion

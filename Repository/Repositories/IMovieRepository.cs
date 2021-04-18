@@ -11,10 +11,9 @@ namespace Repository.Repositories
     {
         Task<MovieSummaryViewModel> GetMovies(string keyword, PagingInfo pagingInfo,
             CancellationToken cancellationToken = default);
-
         Task AddStartForMovie(int stars, Movie movie,
             CancellationToken cancellationToken = default);
-
         Task<Movie> GetMovieById(Guid movieId, CancellationToken cancellationToken);
+        Task UpdateMovie(Movie movie, CancellationToken cancellationToken = default);
     }
 }

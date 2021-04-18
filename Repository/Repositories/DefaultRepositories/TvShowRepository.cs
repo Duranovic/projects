@@ -9,9 +9,8 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Repository.Contexts;
 using SharedKernel.ApiModels;
-using SharedKernel.Exceptions;
+using SharedKernel.Extensions;
 using SharedKernel.Models;
-using SharedKernel.QueryableExtensions;
 using SharedKernel.ViewModels;
 
 namespace Repository.Repositories.DefaultRepositories
@@ -27,7 +26,7 @@ namespace Repository.Repositories.DefaultRepositories
             _coreDbContext = coreDbContext;
         }
 
-        public async Task<TvShowSummaryViewModel> GetTvShows(string keyword, int page, int pageSize,
+        public async Task<TvShowSummaryViewModel> GetTvShows(string keyword, PagingInfo pagingInfo,
             CancellationToken cancellationToken = default)
         {
             var tvShowsQuery = _coreDbContext.TvShows.AsQueryable();
@@ -37,19 +36,17 @@ namespace Repository.Repositories.DefaultRepositories
                 tvShowsQuery = tvShowsQuery.SearchByPhrase<TvShow, RatingTvShow>(keyword);
             }
 
-            tvShowsQuery = tvShowsQuery.OrderBy(x => x.Ratings.Sum(q => q.Rating.Star.Count) / x.Ratings.Count);
-
-            var total = tvShowsQuery.Count();
+            tvShowsQuery = tvShowsQuery.OrderBy(x => x.Ratings.Average(r => r.Rating.Star.Count));
 
             var tvShows = await tvShowsQuery
-                .Take(pageSize)
+                .SkipAndTake(pagingInfo)
                 .ProjectTo<TvShowViewModel>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return new TvShowSummaryViewModel
             {
                 TvShowViewModels = tvShows,
-                PaginationInfo = new PaginationInfo { Page = page, PageSize = pageSize, Total = total }
+                PaginationInfo = new PaginationInfo { Page = pagingInfo.PageNumber, PageSize = pagingInfo.PageSize, Total = tvShowsQuery.Count() }
             };
         }
     }

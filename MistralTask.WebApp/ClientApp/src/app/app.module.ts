@@ -32,8 +32,7 @@ export function configAndLogsServiceFactory(
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    CoreModule,
-    FormsModule
+    CoreModule
   ],
   providers: [
     ConfigService,

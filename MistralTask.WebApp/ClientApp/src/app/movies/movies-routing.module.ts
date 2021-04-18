@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MovieListComponent } from './movie-list/movie-list.component';
+import { RateMovieComponent } from './rate-movie/rate-movie.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,14 @@ const routes: Routes = [
                 data: {
                     showTopTitleBar: true,
                 }
-            }
+            },
+            {
+              path: "rate",
+              component: RateMovieComponent,
+              data: {
+                  showTopTitleBar: true,
+              }
+          }
         ]
     }
 ];

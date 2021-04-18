@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SharedKernel.Models;
 
 namespace SharedKernel.Data.Configurations.CoreDbContext
@@ -14,32 +15,38 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
 
             builder.HasOne(b => b.RatingMovie)
                 .WithOne(i => i.Rating)
-                .HasForeignKey<RatingMovie>(b => b.MovieId);
+                .HasForeignKey<RatingMovie>(b => b.RatingId);
 
             builder.HasOne(b => b.RatingTvShow)
                 .WithOne(i => i.Rating)
-                .HasForeignKey<RatingTvShow>(b => b.TvShowId);
+                .HasForeignKey<RatingTvShow>(b => b.RatingId);
+
+            builder.Property(p => p.Star)
+                .IsRequired()
+                .HasConversion(new ValueConverter<Star, int>(
+                    v => v.Count,
+                    v => Star.Parse(v)));
 
             builder.HasData(
                 new Rating
                 {
                     Id = new Guid("76a4eaa4-25a8-4469-93ea-08ccd05a60ae"),
-                    Star = new Star(10)
+                    Star = new Star(10),
                 },
                 new Rating
                 {
                     Id = new Guid("c34e4947-510b-4083-ae7a-8040c623bc2e"),
-                    Star = new Star(10)
+                    Star = new Star(10),
                 },
                 new Rating
                 {
                     Id = new Guid("6ac06f71-b7fb-4c1f-b6d6-014faf2be2b6"),
-                    Star = new Star(9)
+                    Star = new Star(9),
                 },
                 new Rating
                 {
                     Id = new Guid("fa7af4e4-aa07-47d0-9bdd-241d899f0d43"),
-                    Star = new Star(10)
+                    Star = new Star(10),
                 },
                 new Rating
                 {
@@ -113,7 +120,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new Rating
                 {
-                    Id = new Guid("5e09150e-f70b-415b-b413-34fe07d0206984"),
+                    Id = new Guid("a5f4fef1-f6ff-4d19-8298-2987bb522d50"),
                     Star = new Star(4)
                 },
                 new Rating
@@ -148,7 +155,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new Rating
                 {
-                    Id = new Guid("504ad4b3-3428-4084-b93c-1802ae9c84677"),
+                    Id = new Guid("29b91bf0-cee2-46ad-9f05-ff01382faf84"),
                     Star = new Star(4)
                 },
                 new Rating
@@ -238,7 +245,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new Rating
                 {
-                    Id = new Guid("986807f9-46fd-40d4-be4a-65aee252452047"),
+                    Id = new Guid("853a954d-652b-4e12-9aff-88585f53fa32"),
                     Star = new Star(10)
                 },
                 new Rating

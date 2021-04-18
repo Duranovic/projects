@@ -10,8 +10,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
         {
             base.Configure(builder);
 
-            builder.Property(x => x.MovieId).IsRequired();
-            builder.Property(x => x.RatingId).IsRequired();
+            builder.HasOne(x => x.Movie)
+                .WithMany(x => x.Ratings);
 
             builder.HasData(
                 new RatingMovie
@@ -82,7 +82,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("bbda4308-e149-48ba-acfa-c4c514c98c3ec"),
+                    Id = new Guid("00191eb0-4e0f-44cb-93e9-aa4c828e1be5"),
                     MovieId = new Guid("db03a785-ffbb-4599-9add-763ae9156d83"),
                     RatingId = new Guid("33c0c66c-65db-4c6d-b65b-8453ca9c36a4")
                 },
@@ -124,7 +124,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("fd9f20d3-62c4-4edb-a5e2-e31326be8256"),
+                    Id = new Guid("32af4900-2024-433e-892f-2b201ead11e1"),
                     MovieId = new Guid("1f37fef0-edd9-444c-920f-804d95a43fb8"),
                     RatingId = new Guid("b4319a50-d682-4944-af47-369c79a879bd")
                 },
@@ -156,7 +156,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 {
                     Id = new Guid("9135a509-1f27-4231-b5f5-48ccb761ed1d"),
                     MovieId = new Guid("a01b2cf7-9496-4bb5-80ba-d475723897a7"),
-                    RatingId = new Guid("504ad4b3-3428-4084-b93c-1802ae9c84677")
+                    RatingId = new Guid("29b91bf0-cee2-46ad-9f05-ff01382faf84")
                 },
                 new RatingMovie
                 {
@@ -173,30 +173,30 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 new RatingMovie
                 {
                     Id = new Guid("4e490c3c-22e4-4364-9937-8ded3d0f825b"),
-                    MovieId = new Guid("46b687b2-6143-4255-800d-a4a1a2939d25"),
+                    MovieId = new Guid("33f381f4-c54f-4e97-8ba5-9a1e27c9472c"),
                     RatingId = new Guid("3d455335-0b64-4220-8efb-5508fe1336fc")
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("8cdbeb3c-2dab-4525-b773-b822fd3e7c7bb"),
-                    MovieId = new Guid("46b687b2-6143-4255-800d-a4a1a2939d25"),
+                    Id = new Guid("8252a69a-7f7e-4b1c-a29f-0973c5c20a72"),
+                    MovieId = new Guid("33f381f4-c54f-4e97-8ba5-9a1e27c9472c"),
                     RatingId = new Guid("0cd3fefc-968d-4387-a657-5308ea1e78e4")
                 },
                 new RatingMovie
                 {
                     Id = new Guid("80cc1da6-3684-4cce-aa49-6f10958746b2"),
-                    MovieId = new Guid("46b687b2-6143-4255-800d-a4a1a2939d25"),
+                    MovieId = new Guid("33f381f4-c54f-4e97-8ba5-9a1e27c9472c"),
                     RatingId = new Guid("cb7ae9bc-1abc-4712-9a8b-dc7ad52f311d")
                 },
                 new RatingMovie
                 {
                     Id = new Guid("d4392b4c-7ca1-42ca-bb71-c412e3d6fa29"),
-                    MovieId = new Guid("4d973b27-50a9-4262-8389-81a8d905d4e4"),
+                    MovieId = new Guid("33f381f4-c54f-4e97-8ba5-9a1e27c9472c"),
                     RatingId = new Guid("1109cbd5-93ef-4145-a29a-32ae758bf92c")
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("d4392b4c-7ca1-42ca-bb71-c412e3d6fa29"),
+                    Id = new Guid("4353b901-7eab-4864-9224-55ebef00f177"),
                     MovieId = new Guid("4d973b27-50a9-4262-8389-81a8d905d4e4"),
                     RatingId = new Guid("1109cbd5-93ef-4145-a29a-32ae758bf92c")
                 },
@@ -214,13 +214,13 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("d4392b4c-7ca1-42ca-bb71-c412e3d6fa29"),
+                    Id = new Guid("950eef59-2c6e-44a9-8169-c57faef8b6e7"),
                     MovieId = new Guid("6654e2e5-7446-48c0-8522-bd9d7284cb7a"),
                     RatingId = new Guid("b6410b02-82b2-4244-8445-442de29908d3")
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("a85c60f7-64d7-4bc7-9bd9-0f00b23fb19e29"),
+                    Id = new Guid("375dcc1f-4383-4277-8c27-07352427ae00"),
                     MovieId = new Guid("6654e2e5-7446-48c0-8522-bd9d7284cb7a"),
                     RatingId = new Guid("5f7ef726-22d2-4f7e-80f4-1ab24c3c26a9")
                 },
@@ -232,25 +232,25 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("d4392b4c-7ca1-42ca-bb71-c412e3d6fa29"),
+                    Id = new Guid("0d5a3139-8d2f-47de-afc2-7e10a0a6def4"),
                     MovieId = new Guid("b96c8fd6-bf44-4a57-b8fe-64a62a951655"),
                     RatingId = new Guid("704cd083-5dea-4599-a95a-618687fcd5fe")
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("cbd1a92d-ecf8-40d3-b0aa-e08d190a4112"),
-                    MovieId = new Guid("d9096c09-9057-4fea-a059-9c3af0dd50765"),
+                    Id = new Guid("f556e910-a09e-47f5-9b56-f1fa54e8e93e"),
+                    MovieId = new Guid("f98499a3-00a6-4335-a175-53a30b5b7246"),
                     RatingId = new Guid("62480509-2c97-473f-bbe9-c097a4c46f5f")
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("b99465ab-36e0-4fa0-b92c-fb45a8d017f2"),
+                    Id = new Guid("cd17ccc5-27da-4793-b442-01c952b653a9"),
                     MovieId = new Guid("d47d40dd-fd8c-48df-a766-7c9c2309f682"),
                     RatingId = new Guid("6ca7dcad-8db9-4956-ba9b-7c53f00cd69a")
                 },
                 new RatingMovie
                 {
-                    Id = new Guid("b99465ab-36e0-4fa0-b92c-fb45a8d017f2"),
+                    Id = new Guid("0064ca0c-72bd-4be7-8d29-3783af4a3ecb"),
                     MovieId = new Guid("8a30ed42-ee09-4103-8f05-9c607503c04e"),
                     RatingId = new Guid("53ee0e5a-70be-4c6f-8e65-b908ed399ee5")
                 }

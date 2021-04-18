@@ -4,18 +4,16 @@ using SharedKernel.Models;
 
 namespace SharedKernel.Data.Configurations.CoreDbContext
 {
-    public class MovieEntityTypeConfiguration : BaseEntityTypeConfigurationNoVersioning<Movie, Guid>
+    public class MovieEntityTypeConfiguration : AggregateRootTypeConfigurationNoVersioning<Movie, Guid>
     {
         public override void Configure(EntityTypeBuilder<Movie> builder)
         {
             base.Configure(builder);
 
-            builder.Property(x => x.Title).IsRequired();
-            builder.Property(x => x.ReleaseDate).IsRequired();
-
             builder
                 .HasMany(p => p.Ratings)
-                .WithOne(p => p.Movie);
+                .WithOne(p => p.Movie)
+                .HasForeignKey(x => x.MovieId);
 
             builder
                 .HasOne(p => p.CastMovie)
@@ -29,7 +27,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1994, 9, 14),
                     Description =
                         "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-                    CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/TheShawshankRedemption.jpg"
+                    CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/TheShawshankRedemption.jpg",
+                    AverageRating = 10
                 },
                 new Movie
                 {
@@ -38,7 +37,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1972, 2, 4),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/TheGodfather.jpg",
                     Description =
-                        "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son."
+                        "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
+                    AverageRating = 10
                 },
                 new Movie
                 {
@@ -47,7 +47,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1972, 2, 4),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/TheGodfatherPartII.jpg",
                     Description =
-                        "The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate."
+                        "The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.",
+                    AverageRating = 9
                 },
                 new Movie
                 {
@@ -56,7 +57,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(2008, 10, 21),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/TheDarkKnight.jpg",
                     Description =
-                        "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+                        "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+                    AverageRating = 8
                 },
                 new Movie
                 {
@@ -65,7 +67,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1957, 3, 31),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/12AngryMen.jpg",
                     Description =
-                        "A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence."
+                        "A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence.",
+                    AverageRating = 8
                 },
                 new Movie
                 {
@@ -74,7 +77,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1993, 12, 1),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/SchindlerList.jpg",
                     Description =
-                        "A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence."
+                        "A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence.",
+                    AverageRating = 7
                 },
                 new Movie
                 {
@@ -83,7 +87,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1994, 12, 1),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/PulpFiction.jpg",
                     Description =
-                        "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis."
+                        "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
+                    AverageRating = 7
                 },
                 new Movie
                 {
@@ -97,12 +102,13 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new Movie
                 {
-                    Id = new Guid("46b687b2-6143-4255-800d-a4a1a2939d25"),
+                    Id = new Guid("33f381f4-c54f-4e97-8ba5-9a1e27c9472c"),
                     Title = "The Good, the Bad and the Ugly",
                     ReleaseDate = new DateTime(1966, 4, 22),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/TheGoodtheBadandtheUgly.jpg",
                     Description =
-                        "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption."
+                        "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+                    AverageRating = 4
                 },
                 new Movie
                 {
@@ -112,7 +118,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     CoverImage =
                         "https://mistraltask.blob.core.windows.net/mistraltask/TheLordoftheRingsTheFellowshipoftheRing.jpg",
                     Description =
-                        "A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery."
+                        "A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.",
+                    AverageRating = 4.6
                 },
                 new Movie
                 {
@@ -121,7 +128,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1999, 1, 22),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/FightClub.jpg",
                     Description =
-                        "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron."
+                        "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.",
+                    AverageRating = 3.2
                 },
                 new Movie
                 {
@@ -130,16 +138,18 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     ReleaseDate = new DateTime(1994, 5, 26),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/ForrestGump.jpg",
                     Description =
-                        "The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold from the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart."
+                        "The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold from the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.",
+                    AverageRating =3
                 },
                 new Movie
                 {
-                    Id = new Guid("d9096c09-9057-4fea-a059-9c3af0dd50765"),
+                    Id = new Guid("f98499a3-00a6-4335-a175-53a30b5b7246"),
                     Title = "Inception",
                     ReleaseDate = new DateTime(2010, 7, 27),
                     CoverImage = "https://mistraltask.blob.core.windows.net/mistraltask/Inception.jpg",
                     Description =
-                        "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
+                        "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+                    AverageRating = 3
                 },
                 new Movie
                 {
@@ -149,7 +159,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     CoverImage =
                         "https://mistraltask.blob.core.windows.net/mistraltask/TheLordoftheRingsTheTwoTowers.jpg",
                     Description =
-                        "While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard."
+                        "While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard.",
+                    AverageRating = 2
                 },
                 new Movie
                 {
@@ -159,7 +170,8 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     CoverImage =
                         "https://mistraltask.blob.core.windows.net/mistraltask/StarWarsEpisodeVTheEmpireStrikesBack.jpg",
                     Description =
-                        "After the Rebels are brutally overpowered by the Empire on the ice planet Hoth, Luke Skywalker begins Jedi training with Yoda, while his friends are pursued by Darth Vader and a bounty hunter named Boba Fett all over the galaxy."
+                        "After the Rebels are brutally overpowered by the Empire on the ice planet Hoth, Luke Skywalker begins Jedi training with Yoda, while his friends are pursued by Darth Vader and a bounty hunter named Boba Fett all over the galaxy.",
+                    AverageRating = 1
                 }
             );
         }

@@ -31,18 +31,6 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new CastMovie
                 {
-                    Id = new Guid("483de099-44c2-4c70-a8da-eae68c124a22"),
-                    CastId = new Guid("4e9bbba5-cb2c-444e-83bc-fc10c8e8c8c4"),
-                    MovieId = new Guid("db03a785-ffbb-4599-9add-763ae9156d83")
-                },
-                new CastMovie
-                {
-                    Id = new Guid("427643bd-1465-4ec3-b194-bc959137bfb9b"),
-                    CastId = new Guid("4e9bbba5-cb2c-444e-83bc-fc10c8e8c8c4"),
-                    MovieId = new Guid("1f921843-87da-476b-8dfb-4ab892977ba1")
-                },
-                new CastMovie
-                {
                     Id = new Guid("13cd344a-fc86-4974-9924-ab91fff0fd79"),
                     CastId = new Guid("d964f7e3-5cb7-43c5-9b4d-4065dd0dcdcd"),
                     MovieId = new Guid("de0d2ad7-d56e-41c5-9dbd-23fec0f11fa2")
@@ -69,7 +57,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 {
                     Id = new Guid("870e522a-bef6-47fd-bf00-05ce6b7de7e4"),
                     CastId = new Guid("8f059533-25f4-4465-90b0-2ca13b6bb155"),
-                    MovieId = new Guid("46b687b2-6143-4255-800d-a4a1a2939d25")
+                    MovieId = new Guid("33f381f4-c54f-4e97-8ba5-9a1e27c9472c")
                 },
                 new CastMovie
                 {
@@ -93,7 +81,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 {
                     Id = new Guid("2f1696b7-2106-4ba3-aab9-dcb4104b3164"),
                     CastId = new Guid("5ee2a634-9f8e-4f81-b7c3-a9107e865581"),
-                    MovieId = new Guid("d9096c09-9057-4fea-a059-9c3af0dd50765")
+                    MovieId = new Guid("f98499a3-00a6-4335-a175-53a30b5b7246")
                 },
                 new CastMovie
                 {

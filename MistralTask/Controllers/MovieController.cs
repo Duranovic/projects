@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MistralTask.Business.Commands;
 using MistralTask.Business.Queries;
@@ -8,9 +9,8 @@ using SharedKernel.Extensions;
 
 namespace MistralTask.Controllers
 {
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    [ApiVersion("1.0")]
     public class MovieController : Controller
     {
         private readonly IMediator _dispatcher;

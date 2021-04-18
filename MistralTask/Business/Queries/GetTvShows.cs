@@ -6,7 +6,7 @@ namespace MistralTask.Business.Queries
 {
     public class GetTvShows
     {
-        public class Query : PaginationQuery<ApiModel<IReadOnlyList<MovieViewModel>>>
+        public class Query : PaginationQuery<ApiModel<IReadOnlyList<TvShowViewModel>>>
         {
             public Query()
             {

@@ -24,7 +24,16 @@ namespace Repository.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MovieEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TvShowEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CastTvShowEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CastMovieEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ActorEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CastActorEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CastEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RatingEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RatingMovieEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RatingTvShowEntityTypeConfiguration());
+
             base.OnModelCreating(modelBuilder);
         }
     }

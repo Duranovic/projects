@@ -5,7 +5,7 @@ namespace SharedKernel.Models
 {
     public class RatingMovie : BaseEntity<Guid>, IRating
     {
-        private RatingMovie()
+        public RatingMovie()
         {
             Id = new Guid();
         }

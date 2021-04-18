@@ -8,6 +8,13 @@ namespace SharedKernel.ViewModels
 {
     public class ActorViewModel : BaseViewModel<Guid>
     {
+        public ActorViewModel(Actor actor)
+        {
+            Id = actor.Id;
+            FirstName = actor?.FirstName;
+            LastName = actor?.LastName;
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

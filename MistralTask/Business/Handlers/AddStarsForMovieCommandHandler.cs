@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -23,12 +21,14 @@ namespace MistralTask.Business.Handlers
         {
             var movie = await _movieRepository.GetMovieById(command.MovieId, cancellationToken);
 
-            if (movie== null)
+            if (movie == null)
             {
                 throw new Exception($"Movie with id: {command.MovieId} doesn't exist");
             }
 
             await _movieRepository.AddStartForMovie(command.Stars, movie, cancellationToken);
+
+            await _movieRepository.UpdateMovie(movie, cancellationToken);
 
             return ApiModel.Success();
         }

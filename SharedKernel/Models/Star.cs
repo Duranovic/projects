@@ -6,6 +6,8 @@ namespace SharedKernel.Models
 {
     public class Star : ValueObject<Star>
     {
+        public static Star Default = new(0);
+
         public Star(int count)
         {
             Count = count;
@@ -15,6 +17,12 @@ namespace SharedKernel.Models
 
         protected override IEnumerable<object> EqualityCheckAttributes => new object[] {Count};
 
+        public static Star Parse(int value)
+        {
+            if (value == 0) return Default;
+
+            return new Star(value);
+        }
 
         public override bool Equals(object obj)
         {

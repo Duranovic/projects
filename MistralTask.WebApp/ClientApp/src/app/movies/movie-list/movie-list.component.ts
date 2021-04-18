@@ -17,7 +17,7 @@ export class MovieListComponent implements OnInit {
     debounceTime: number = 400;
     currentPage: number = 1;
     searchControl: FormControl = new FormControl();
-
+    errors: string[] = [];
     movies: ApiResponse<Movie[]> = {} as ApiResponse<Movie[]>;
 
     constructor(
@@ -30,7 +30,7 @@ export class MovieListComponent implements OnInit {
         this.searchControl.valueChanges
             .pipe(debounceTime(this.debounceTime))
             .subscribe(() => this.searchMovies());
-        this.searchMovies();
+        this.getMovies("", false);
     }
 
     searchMovies(): void {
@@ -39,7 +39,7 @@ export class MovieListComponent implements OnInit {
             : "";
 
         if (keyword.length > 2) {
-            this.getMovies(keyword);
+            this.getMovies(keyword, false);
         }
     }
 
@@ -49,16 +49,24 @@ export class MovieListComponent implements OnInit {
         this.searchMovies();
     }
 
-    onSuccess(data: ApiResponse<Movie[]>): void {
+    onSuccess(data: ApiResponse<Movie[]>, loadMore: boolean): void {
         this.movies.paginationInfo = data.paginationInfo;
-        this.movies.records.push(...data.records);
+        if (this.movies.records || loadMore) {
+            this.movies.records.push(...data.records);
+        } else{
+            this.movies.records = data.records;
+        }
 
         this.currentPage = 1;
     }
 
-    private getMovies(keyword: string = ""): void {
+    getMovies(keyword: string = "", loadMore: boolean): void {
+        if (loadMore) {
+            this.currentPage++;
+        }
+
         this.movieApiService
             .searchMovies(keyword, this.currentPage, this.pageSize)
-            .subscribe(data => this.onSuccess(data));
+            .subscribe(data => this.onSuccess(data, loadMore));
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -11,23 +9,24 @@ using SharedKernel.ViewModels;
 
 namespace MistralTask.Business.Handlers
 {
-    public class GetTvShowsCommandHandler : IRequestHandler<GetMovies.Query, ApiModel<IReadOnlyList<MovieViewModel>>>
+    public class GetTvShowsCommandHandler : IRequestHandler<GetTvShows.Query, ApiModel<IReadOnlyList<TvShowViewModel>>>
     {
-        private readonly ITvShowRepository _movieRepository;
+        private readonly ITvShowRepository _tvShowRepository;
 
-        public GetTvShowsCommandHandler(IMovieRepository movieRepository)
+        public GetTvShowsCommandHandler(ITvShowRepository tvShowRepository)
         {
-            _movieRepository = movieRepository;
+            _tvShowRepository = tvShowRepository;
         }
 
-        public async Task<ApiModel<IReadOnlyList<MovieViewModel>>> Handle(GetMovies.Query query,
+        public async Task<ApiModel<IReadOnlyList<TvShowViewModel>>> Handle(GetTvShows.Query query,
             CancellationToken cancellationToken)
         {
-            var moviesSummary = await
-                _movieRepository.GetMovies(query.Keyword, new PagingInfo(query.Page, query.PageSize), cancellationToken);
+            var tvShowSummaryViewModel = await
+                _tvShowRepository.GetTvShows(query.Keyword, new PagingInfo(query.Page, query.PageSize),
+                    cancellationToken);
 
-            return ApiModel<IReadOnlyList<MovieViewModel>>.Success().WithData(moviesSummary.MovieViewModels)
-                .WithMeta(moviesSummary.PaginationInfo);
+            return ApiModel<IReadOnlyList<TvShowViewModel>>.Success().WithData(tvShowSummaryViewModel.TvShowViewModels)
+                .WithMeta(tvShowSummaryViewModel.PaginationInfo);
         }
     }
 }

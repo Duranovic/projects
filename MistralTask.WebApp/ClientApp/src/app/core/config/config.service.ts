@@ -12,12 +12,12 @@ export class ConfigService {
         const appSettings = `/settings/appsettings.json`;
         const promise = this.http.get<AppConfig>(appSettings)
             .toPromise()
-            .then(config => this.setConfigAndFindTenant(config));
+            .then(config => this.setConfig(config));
 
         return promise;
     }
 
-    private setConfigAndFindTenant(config: AppConfig): void {
+    private setConfig(config: AppConfig): void {
         this.appConfig.appSettings = config.appSettings;
     }
 }

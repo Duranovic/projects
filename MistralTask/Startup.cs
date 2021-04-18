@@ -33,10 +33,11 @@ namespace MistralTask
             });
 
             services
+                .AddCorsExtension(Configuration)
                 .AddCommandHandlers(assemblies)
                 .AddMapper(assemblies)
                 .AddDataRepository(assemblies)
-                .AddCorsExtension(Configuration);
+                .AddCoreDbContext(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +56,11 @@ namespace MistralTask
 
             app.UseAuthorization();
 
+            app.UseCorsExtension();
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            app.UseCoreDbContext();
         }
     }
 }

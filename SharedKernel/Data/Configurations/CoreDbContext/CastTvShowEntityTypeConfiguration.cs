@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SharedKernel.Models;
 
@@ -87,7 +83,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                     CastId = new Guid("650904b3-9bf1-4b6f-afe0-f491a23cdd8a"),
                     TvShowId = new Guid("34a59d35-558c-4183-99b9-0457652f8663")
                 }
-                );
+            );
         }
     }
 }

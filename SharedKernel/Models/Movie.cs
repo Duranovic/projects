@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.Storage;
 using SharedKernel.Domain;
 
 namespace SharedKernel.Models
@@ -21,11 +19,12 @@ namespace SharedKernel.Models
             Description = description;
         }
 
+        public string CoverImage { get; set; }
+        public CastMovie CastMovie { get; set; }
+        public double AverageRating { get; set; }
         public string Title { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public string CoverImage { get; set; }
         public string Description { get; set; }
-        public CastMovie CastMovie { get; set; }
 
         public ICollection<RatingMovie> Ratings { get; set; }
     }

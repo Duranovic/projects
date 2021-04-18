@@ -11,7 +11,7 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
             base.Configure(builder);
 
             builder.Property(x => x.TvShowId).IsRequired();
-            builder.Property(x => x.RatingId).IsRequired();
+            builder.Property(x => x.RatingId).ValueGeneratedOnAdd();
 
             builder.HasData(
                 new RatingTvShow
@@ -22,15 +22,15 @@ namespace SharedKernel.Data.Configurations.CoreDbContext
                 },
                 new RatingTvShow
                 {
-                    Id = new Guid("5064e4ae-699e-4733-8869-508f04b13d53c"),
+                    Id = new Guid("1b4b61c4-f3fe-43ba-b162-5d731b732ef9"),
                     TvShowId = new Guid("d482111e-da32-40a8-a69f-39c4b7fb7909"),
                     RatingId = new Guid("510e4555-d700-4284-8a12-27569c80a98f")
                 },
                 new RatingTvShow
                 {
-                    Id = new Guid("ecef7ea0-ad36-4d83-b52a-6d30075b1f80c"),
+                    Id = new Guid("fd526d17-6d21-47cc-9f62-ce20155a0f76"),
                     TvShowId = new Guid("d482111e-da32-40a8-a69f-39c4b7fb7909"),
-                    RatingId = new Guid("986807f9-46fd-40d4-be4a-65aee252452047")
+                    RatingId = new Guid("853a954d-652b-4e12-9aff-88585f53fa32")
                 },
                 new RatingTvShow
                 {
