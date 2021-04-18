@@ -19,6 +19,7 @@ export class MovieListComponent implements OnInit {
     searchControl: FormControl = new FormControl();
     errors: string[] = [];
     movies: ApiResponse<Movie[]> = {} as ApiResponse<Movie[]>;
+    isList: boolean = false;
 
     constructor(
         private readonly movieApiService: MoviesApiService,
@@ -68,5 +69,9 @@ export class MovieListComponent implements OnInit {
         this.movieApiService
             .searchMovies(keyword, this.currentPage, this.pageSize)
             .subscribe(data => this.onSuccess(data, loadMore));
+    }
+
+    changeViewMode(){
+        this.isList = !this.isList;
     }
 }
